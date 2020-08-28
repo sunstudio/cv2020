@@ -19,6 +19,21 @@ def plot_img():
     plt.xticks([]), plt.yticks([])  # to hide tick values on X and Y axis
     plt.show()
 
+def plot_img2():
+    img1 = cv2.imread('../images/lena.jpg')
+    img2 = cv2.imread('../images/lena.jpg')
+    img3 = cv2.imread('../images/messi.jpg')
+    img4 = cv2.imread('../images/messi.jpg')
+    plt.subplot(2,2,1)
+    plt.imshow(img1)
+    plt.subplot(2,2,2)
+    plt.imshow(img2)
+    plt.subplot(2,2,3)
+    plt.imshow(img3)
+    plt.subplot(2,2,4)
+    plt.imshow(img4)
+    plt.show()
+
 
 def color_distorted():
     img = cv2.imread('../images/lena.jpg')
@@ -32,4 +47,4 @@ def color_distorted():
 
 
 if __name__ == '__main__':
-    color_distorted()
+    plot_img2()
