@@ -42,5 +42,54 @@ def simple_thre():
         plt.yticks([])
     plt.show()
 
-simple_thre()
 
+def resize0():
+    img = cv2.imread('../images/messi.jpg')
+    h,w,_ = img.shape
+    big1 = cv2.resize(src=img,  dsize=(w//2,h//2))
+    big2 = cv2.resize(src=img, dsize=None, fx=0.5, fy=0.8)
+    cv2.imshow('original', img)
+    cv2.imshow('big1',big1)
+    cv2.imshow('big2',big2)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+
+def transform0():
+    img = cv2.imread('../images/messi.jpg')
+    rows, cols,_ = img.shape
+    M = cv2.getRotationMatrix2D((cols / 2, rows / 2), 45, 1)
+    dst = cv2.warpAffine(img, M, (cols, rows))
+    # M = np.float32([[1, 0, 100], [0, 1, 50]])
+    # dst = cv2.warpAffine(img, M, (cols, rows))
+    cv2.imshow('img', dst)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+
+
+def transform1():
+    img = cv2.imread('../images/messi.jpg')
+    rows, cols,_ = img.shape
+    src = np.float32([[0,0],[600,0],[0,450]])
+    dst = np.float32([[50,20],[580,80],[80,400]])
+    M = cv2.getAffineTransform(src, dst)
+    dst = cv2.warpAffine(img, M, (cols, rows))
+    # M = np.float32([[1, 0, 100], [0, 1, 50]])
+    # dst = cv2.warpAffine(img, M, (cols, rows))
+    cv2.imshow('img', dst)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+img = cv2.imread('sudokusmall.png')
+rows,cols,ch = img.shape
+pts1 = np.float32([[56,65],[368,52],[28,387],[389,390]])
+pts2 = np.float32([[0,0],[300,0],[0,300],[300,300]])
+M = cv2.getPerspectiveTransform(pts1,pts2)
+dst = cv2.warpPerspective(img,M,(300,300))
+plt.subplot(121),plt.imshow(img),plt.title('Input')
+plt.subplot(122),plt.imshow(dst),plt.title('Output')
+plt.show()
+
+
+transform1()
