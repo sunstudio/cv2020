@@ -1,6 +1,8 @@
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
+from .util import plot_images
+
 
 def bgr_filter():
     img = cv2.imread('../images/messi.jpg')
@@ -43,6 +45,7 @@ def simple_thre():
     plt.show()
 
 
+
 def resize0():
     img = cv2.imread('../images/messi.jpg')
     h,w,_ = img.shape
@@ -60,12 +63,7 @@ def transform0():
     rows, cols,_ = img.shape
     M = cv2.getRotationMatrix2D((cols / 2, rows / 2), 45, 1)
     dst = cv2.warpAffine(img, M, (cols, rows))
-    # M = np.float32([[1, 0, 100], [0, 1, 50]])
-    # dst = cv2.warpAffine(img, M, (cols, rows))
-    cv2.imshow('img', dst)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-
+    plot_images(1,2,[img,dst])
 
 
 def transform1():
@@ -75,21 +73,17 @@ def transform1():
     dst = np.float32([[50,20],[580,80],[80,400]])
     M = cv2.getAffineTransform(src, dst)
     dst = cv2.warpAffine(img, M, (cols, rows))
-    # M = np.float32([[1, 0, 100], [0, 1, 50]])
-    # dst = cv2.warpAffine(img, M, (cols, rows))
-    cv2.imshow('img', dst)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-
-img = cv2.imread('sudokusmall.png')
-rows,cols,ch = img.shape
-pts1 = np.float32([[56,65],[368,52],[28,387],[389,390]])
-pts2 = np.float32([[0,0],[300,0],[0,300],[300,300]])
-M = cv2.getPerspectiveTransform(pts1,pts2)
-dst = cv2.warpPerspective(img,M,(300,300))
-plt.subplot(121),plt.imshow(img),plt.title('Input')
-plt.subplot(122),plt.imshow(dst),plt.title('Output')
-plt.show()
+    plot_images(1,2,[img,dst])
 
 
-transform1()
+def perspective():
+    img = cv2.imread('../images/perspective.jpg')
+    rows, cols,_ = img.shape
+    src = np.float32([[78,82],[455,70],[41,472],[455,472]])
+    dst = np.float32([[41,40],[475,40],[41,472],[455,472]])
+    M = cv2.getPerspectiveTransform(src, dst)
+    dst = cv2.warpPerspective(img, M, (cols, rows))
+    plot_images(1,2,[img,dst])
+
+
+perspective()

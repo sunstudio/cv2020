@@ -18,12 +18,22 @@ def capture_camera():
 
 
 def play_video_file():
-    cap = cv2.VideoCapture('vtest.avi')
+    src = '../images/vehicle.mp4'
+    cap = cv2.VideoCapture(src)
+    has_print_prop = False
     while (cap.isOpened()):
         ret, frame = cap.read()
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        cv2.imshow('frame', gray)
+        if not ret: break
+        if not has_print_prop:
+            has_print_prop = True
+            print(cap.get(3), cap.get(4))
+            print(frame.shape)
+        cv2.imshow('frame', frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     cap.release()
     cv2.destroyAllWindows()
+
+
+if __name__ == '__main__':
+    play_video_file()
