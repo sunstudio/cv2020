@@ -22,15 +22,37 @@ def contour_area():
     img2 = np.ones(img.shape)
     # 按照面积将所有轮廓逆序排序
     contours2 = sorted(contours, key=lambda a: cv2.contourArea(a), reverse=True)
+    i = 0
     for c in contours2:
         area = cv2.contourArea(c)
         print(area)
-        # 只输出面积大于500轮廓
-        if area<500:break
+        i+=1
+        if i>=3:break
         # 分别在复制的图像上和白色图像上绘制当前轮廓
         cv2.drawContours(img1, [c],0, (0,255,0), 3)
         cv2.drawContours(img2, [c],0, (0,255,0), 3)
     plot_images(1,3,[img,img1,img2], gray=True)
+
+
+def contour_area_1():
+    img = cv2.imread('../images/lena.jpg', cv2.IMREAD_GRAYSCALE)
+    ret, thresh = cv2.threshold(img, 160, 255, cv2.THRESH_BINARY)
+    contours,hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    # 复制原图
+    img1 = img.copy()
+    # 按照面积将所有轮廓逆序排序
+    contours2 = sorted(contours, key=lambda a: cv2.contourArea(a), reverse=True)
+    i = 0
+    for c in contours2:
+        area = cv2.contourArea(c)
+        print(area)
+        i+=1
+        if i>=3:break
+        cv2.drawContours(img1, [c],0, (0,255,0), 3)
+    cv2.imshow('image', img)
+    cv2.imshow('contour', img1)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
 
 def contour_perimeter():
@@ -153,4 +175,5 @@ def boundingRectangle():
 
 
 # approximation01()
-boundingRectangle()
+# boundingRectangle()
+contour_area_1()

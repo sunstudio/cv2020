@@ -75,6 +75,8 @@ def recognize():
     # generate labels for the training data
     k = np.arange(10)
     train_labels=np.repeat(k,500).reshape(5000,1)
+    print(train.shape)
+    print(train_labels.shape)
     # create knn and train
     knn = cv2.ml.KNearest_create()
     knn.train(train, cv2.ml.ROW_SAMPLE, train_labels)
