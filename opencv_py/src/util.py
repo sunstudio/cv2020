@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 
 
-def plot_images(rows,cols,images,cvtColor=True):
+def plot_images(rows,cols,images,cvtColor=True, titles=None):
     for i in range(rows*cols):
         plt.subplot(rows,cols,i+1)
         if cvtColor:
@@ -13,5 +13,7 @@ def plot_images(rows,cols,images,cvtColor=True):
         plt.imshow(img)
         plt.xticks([])
         plt.yticks([])
+        if titles is not None and len(titles)>i:
+            plt.title(titles[i])
     plt.show()
 

@@ -1,7 +1,7 @@
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
-from .util import plot_images
+from src.util import plot_images
 
 
 def bgr_filter():
@@ -86,4 +86,12 @@ def perspective():
     plot_images(1,2,[img,dst])
 
 
-perspective()
+def blur01():
+    img0 = cv2.imread('../images/lena.jpg')
+    img1 = cv2.blur(img0, (5,5))
+    img2 = cv2.GaussianBlur(img0,(5,5), 0)
+    img3 = cv2.medianBlur(img0,5)
+    plot_images(2,2,[img0,img1,img2,img3], titles=['original','averaging','Gaussian','median'])
+
+blur01()
+
