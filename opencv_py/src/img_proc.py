@@ -86,12 +86,19 @@ def perspective():
     plot_images(1,2,[img,dst])
 
 
-def blur01():
-    img0 = cv2.imread('../images/lena.jpg')
-    img1 = cv2.blur(img0, (5,5))
-    img2 = cv2.GaussianBlur(img0,(5,5), 0)
-    img3 = cv2.medianBlur(img0,5)
-    plot_images(2,2,[img0,img1,img2,img3], titles=['original','averaging','Gaussian','median'])
+def perspective2():
+    img = cv2.imread('../images/perspective.jpg')
+    rows, cols, ch = img.shape
+    pts1 = np.float32([[56, 65], [368, 52], [28, 387], [389, 390]])
+    pts2 = np.float32([[0, 0], [300, 0], [0, 300], [300, 300]])
+    M = cv2.getPerspectiveTransform(pts1, pts2)
+    dst = cv2.warpPerspective(img, M, (300, 300))
+    cv2.imshow('input', img)
+    cv2.imshow('output', dst)
 
-blur01()
+    plt.subplot(121), plt.imshow(img), plt.title('Input')
+    plt.subplot(122), plt.imshow(dst), plt.title('Output')
+    plt.show()
 
+
+perspective2()
