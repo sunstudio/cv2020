@@ -1,7 +1,7 @@
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
-from util import plot_images
+from src.util import plot_images
 
 
 def bgr_filter():
