@@ -29,7 +29,7 @@ def knn_rand_plot():
 
 
 def knn_digits_ocr():
-    img = cv2.imread('../images/digits.png')
+    img = cv2.imread('images/digits.png')
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     cells = []
     # now we split the image to 5000 cells, each 20x20 size
@@ -65,7 +65,7 @@ def knn_digits_ocr():
 
 def recognize():
     # read the big image (containing 100*50 small digit images)
-    img = cv2.imread('../images/digits.png')
+    img = cv2.imread('images/digits.png')
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # split into 100*50 cells, each cell is a digit image
     cells = [np.hsplit(row, 100) for row in np.vsplit(gray, 50)]
@@ -81,7 +81,7 @@ def recognize():
     knn = cv2.ml.KNearest_create()
     knn.train(train, cv2.ml.ROW_SAMPLE, train_labels)
     # read the test image
-    img = cv2.imread('../images/digits/7.png', cv2.IMREAD_GRAYSCALE)
+    img = cv2.imread('images/digits/7.png', cv2.IMREAD_GRAYSCALE)
     test = np.array(img).astype(np.float32).reshape(-1,400)
     # use knn to find nearest neighbors
     ret,result,neighbours,dist = knn.findNearest(test, k=5)

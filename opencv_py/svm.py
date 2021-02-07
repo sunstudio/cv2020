@@ -28,7 +28,7 @@ def knn_class():
     knn = cv2.ml.KNearest_create()
     knn.train(train, cv2.ml.ROW_SAMPLE, labels)
     # read the test image
-    img = cv2.imread('../images/helmet/hat007.jpg', cv2.IMREAD_GRAYSCALE)
+    img = cv2.imread('images/helmet/hat007.jpg', cv2.IMREAD_GRAYSCALE)
     # img = cv2.imread('../images/hair/head007.jpg', cv2.IMREAD_GRAYSCALE)
     img = cv2.resize(img, (32,32))
     test = np.array(img).astype(np.float32).reshape(-1,32*32)
@@ -78,7 +78,7 @@ def svm_class():
 
     # 读入测试图片
     # img = cv2.imread('../images/helmet/hat007.jpg', cv2.IMREAD_COLOR)
-    img = cv2.imread('../images/hair/head007.jpg', cv2.IMREAD_COLOR)
+    img = cv2.imread('images/hair/head007.jpg', cv2.IMREAD_COLOR)
     test = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     test = cv2.resize(test, (32,32))
     test = np.array(test).astype(np.float32).reshape(-1,32*32)

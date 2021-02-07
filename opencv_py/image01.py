@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 def show_img():
     # Load an color image in grayscale
     # img = cv2.imread('./images/lena.jpg',cv2.IMREAD_GRAYSCALE)
-    img = cv2.imread('../images/lena.jpg', cv2.IMREAD_COLOR)
+    img = cv2.imread('images/lena.jpg', cv2.IMREAD_COLOR)
     cv2.namedWindow('image', cv2.WINDOW_NORMAL)
     cv2.imshow('image',img)
     cv2.waitKey(0)  # 等待用户按键
@@ -14,16 +14,16 @@ def show_img():
 
 
 def plot_img():
-    img = cv2.imread('../images/lena.jpg')
+    img = cv2.imread('images/lena.jpg')
     plt.imshow(img, cmap='gray')
     plt.xticks([]), plt.yticks([])  # to hide tick values on X and Y axis
     plt.show()
 
 def plot_img2():
-    img1 = cv2.imread('../images/lena.jpg')
-    img2 = cv2.imread('../images/lena.jpg')
-    img3 = cv2.imread('../images/messi.jpg')
-    img4 = cv2.imread('../images/messi.jpg')
+    img1 = cv2.imread('images/lena.jpg')
+    img2 = cv2.imread('images/lena.jpg')
+    img3 = cv2.imread('images/messi.jpg')
+    img4 = cv2.imread('images/messi.jpg')
     plt.subplot(2,2,1)
     plt.imshow(img1)
     plt.subplot(2,2,2)
@@ -36,7 +36,7 @@ def plot_img2():
 
 
 def color_distorted():
-    img = cv2.imread('../images/lena.jpg')
+    img = cv2.imread('images/lena.jpg')
     cv2.imshow('image',img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()

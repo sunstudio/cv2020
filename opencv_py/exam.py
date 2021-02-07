@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 
 def contour_area_0():
-    img = cv2.imread('../images/lena.jpg', cv2.IMREAD_GRAYSCALE)
+    img = cv2.imread('images/lena.jpg', cv2.IMREAD_GRAYSCALE)
     ret, thresh = cv2.threshold(img, 160, 255, cv2.THRESH_BINARY)
     contours,hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     # 复制原图
@@ -26,7 +26,7 @@ def contour_area_0():
 
 
 def contour_area_1():
-    img = cv2.imread('../images/lena.jpg', cv2.IMREAD_GRAYSCALE)
+    img = cv2.imread('images/lena.jpg', cv2.IMREAD_GRAYSCALE)
     ret, thresh = cv2.threshold(img, 160, 255, cv2.THRESH_BINARY)
     contours,hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     # 复制原图
@@ -64,5 +64,34 @@ def plot_images(rows, cols, images, cvtColor=True, gray=False, titles=None):
             plt.title(titles[i])
 
     plt.show()
+
+
+def camera_save():
+    cap = cv2.VideoCapture(0)
+    fourcc = cv2.VideoWriter_fourcc(*'XVID')
+    out = cv2.VideoWriter('output.avi', fourcc, 20.0, (640, 480))
+    recording = False
+    while (True):
+        ret, frame = cap.read()
+        if not ret:
+            print('cannot read from camera')
+            break
+        k = cv2.waitKey(1) & 0xFF
+        if k == ord('q'):
+            break
+        elif k == ord('r'):
+            recording = True
+        elif k == ord('s'):
+            recording = False
+        if recording:
+            out.write(frame)
+        cv2.imshow('preview', frame)
+    cap.release()
+    out.release()
+    cv2.destroyAllWindows()
+
+
+camera_save()
+
 
 contour_area_0()

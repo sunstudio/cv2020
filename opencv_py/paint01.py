@@ -27,7 +27,7 @@ def draw_line2():
 
 
 def draw_line3():
-    img = cv2.imread('../images/lena.jpg')
+    img = cv2.imread('images/lena.jpg')
     # Draw a diagonal blue line with thickness of 5 px
     img = cv2.line(img, (0, 0), (511, 511), (255, 0, 0), 5)
     cv2.imshow('image',img)
@@ -36,7 +36,7 @@ def draw_line3():
 
 
 def draw_rect():
-    img = cv2.imread('../images/lena.jpg')
+    img = cv2.imread('images/lena.jpg')
     cv2.rectangle(img,(80,50), (400,400), (0,255,255), 3)
     cv2.circle(img, (240, 225), 180, (0, 0, 255), 2)
     cv2.imshow('image',img)
@@ -57,7 +57,7 @@ def draw_circle():
 
 
 def draw_text():
-    img = cv2.imread('../images/lena.jpg')
+    img = cv2.imread('images/lena.jpg')
     font = cv2.FONT_HERSHEY_SIMPLEX
     cv2.putText(img,"Lina", (150,80), font, 4, (100,50,0), 2)
     cv2.imshow('image',img)

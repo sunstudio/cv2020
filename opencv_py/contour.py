@@ -3,17 +3,41 @@ import numpy as np
 from util import plot_images
 
 
+def hough_line():
+    img = cv2.imread('t:\\images\\001.jpg')
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    cv2.imshow('gray', gray)
+    edges = cv2.Canny(gray, 50, 150, apertureSize=3)
+    lines = cv2.HoughLines(edges, 1, np.pi / 180, 200)
+    for l in lines:
+        for rho, theta in l:
+            a = np.cos(theta)
+            b = np.sin(theta)
+            x0 = a * rho
+            y0 = b * rho
+            x1 = int(x0 + 1000 * (-b))
+            y1 = int(y0 + 1000 * (a))
+            x2 = int(x0 - 1000 * (-b))
+            y2 = int(y0 - 1000 * (a))
+            cv2.line(img, (x1, y1), (x2, y2), (0, 0, 255), 2)
+    cv2.imshow('preview', img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+
+
 def contour00():
-    img = cv2.imread('../images/lena.jpg', cv2.IMREAD_GRAYSCALE)
-    ret, thresh = cv2.threshold(img, 160, 255, cv2.THRESH_BINARY)
+    img = cv2.imread('t:\\images\\001.jpg', cv2.IMREAD_GRAYSCALE)
+    # img = cv2.imread('../images/lena.jpg', cv2.IMREAD_GRAYSCALE)
+    ret, thresh = cv2.threshold(img, 100, 255, cv2.THRESH_BINARY)
     contours,hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     img1 = img.copy()
     cv2.drawContours(img1, contours, -1, (0,255,0), 3)
-    plot_images(1,2,[img,img1], gray=True)
+    plot_images(2,2,[img,thresh,img1], gray=True)
 
 
 def contour_area():
-    img = cv2.imread('../images/lena.jpg', cv2.IMREAD_GRAYSCALE)
+    img = cv2.imread('images/lena.jpg', cv2.IMREAD_GRAYSCALE)
     ret, thresh = cv2.threshold(img, 160, 255, cv2.THRESH_BINARY)
     contours,hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     # 复制原图
@@ -35,7 +59,7 @@ def contour_area():
 
 
 def contour_area_1():
-    img = cv2.imread('../images/lena.jpg', cv2.IMREAD_GRAYSCALE)
+    img = cv2.imread('images/lena.jpg', cv2.IMREAD_GRAYSCALE)
     ret, thresh = cv2.threshold(img, 160, 255, cv2.THRESH_BINARY)
     contours,hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     # 复制原图
@@ -56,7 +80,7 @@ def contour_area_1():
 
 
 def contour_perimeter():
-    img = cv2.imread('../images/lena.jpg', cv2.IMREAD_GRAYSCALE)
+    img = cv2.imread('images/lena.jpg', cv2.IMREAD_GRAYSCALE)
     ret, thresh = cv2.threshold(img, 160, 255, cv2.THRESH_BINARY)
     contours,hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     img1 = img.copy()
@@ -76,7 +100,7 @@ def contour_perimeter():
 
 
 def moments01():
-    img = cv2.imread('../images/lena.jpg', cv2.IMREAD_GRAYSCALE)
+    img = cv2.imread('images/lena.jpg', cv2.IMREAD_GRAYSCALE)
     # 二值化
     ret, thresh = cv2.threshold(img, 160, 255, cv2.THRESH_BINARY)
     # 查找轮廓
@@ -107,7 +131,7 @@ def moments01():
 
 
 def approximation01():
-    img = cv2.imread('../images/lena.jpg', cv2.IMREAD_GRAYSCALE)
+    img = cv2.imread('images/lena.jpg', cv2.IMREAD_GRAYSCALE)
     # 二值化
     ret,thresh = cv2.threshold(img,160,255,cv2.THRESH_BINARY)
     # 查找轮廓
@@ -136,7 +160,7 @@ def approximation01():
 
 
 def convex01():
-    img = cv2.imread('../images/lena.jpg', cv2.IMREAD_GRAYSCALE)
+    img = cv2.imread('images/lena.jpg', cv2.IMREAD_GRAYSCALE)
     # 二值化
     ret,thresh = cv2.threshold(img,160,255,cv2.THRESH_BINARY)
     # 查找轮廓
@@ -156,7 +180,7 @@ def convex01():
 
 
 def boundingRectangle():
-    img = cv2.imread('../images/lightning.png')
+    img = cv2.imread('images/lightning.png')
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     ret, thresh = cv2.threshold(gray, 160, 255, cv2.THRESH_BINARY)
     contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -174,6 +198,7 @@ def boundingRectangle():
     cv2.destroyAllWindows()
 
 
-# approximation01()
-# boundingRectangle()
-contour_area_1()
+if __name__ == '__main__':
+    # approximation01()
+    # boundingRectangle()
+    hough_line()

@@ -48,7 +48,7 @@ def camera_save():
 
 
 def play_video_file():
-    src = '../images/vehicle.mp4'
+    src = 'images/vehicle.mp4'
     cap = cv2.VideoCapture(src)
     has_print_prop = False
     while (cap.isOpened()):

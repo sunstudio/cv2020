@@ -3,12 +3,13 @@ import cv2
 from matplotlib import pyplot as plt
 from operator import mul
 from functools import reduce
+from util import plot_images
 
 
 def pixel():
     # Load an color image in grayscale
     # img = cv2.imread('./images/lena.jpg',cv2.IMREAD_GRAYSCALE)
-    img = cv2.imread('../images/lena.jpg')
+    img = cv2.imread('images/lena.jpg')
     cv2.namedWindow('image', cv2.WINDOW_NORMAL)
     img[150:,250:,:]=0
     plt.imshow(img)
@@ -20,7 +21,7 @@ def pixel():
 
 
 def size():
-    img = cv2.imread('../images/messi.jpg', cv2.IMREAD_COLOR)
+    img = cv2.imread('images/messi.jpg', cv2.IMREAD_COLOR)
     print(img.shape)
     print(img.size)
     print(reduce(mul, img.shape))
@@ -28,23 +29,23 @@ def size():
 
 
 def split():
-    img = cv2.imread('../images/messi.jpg', cv2.IMREAD_COLOR)
+    # img = cv2.imread('../images/messi.jpg', cv2.IMREAD_COLOR)
+    img = cv2.imread('t:\\images\\001.jpg', cv2.IMREAD_COLOR)
     b,g,r = cv2.split(img)
+    # b3 = np.repeat(b,3).reshape(img.shape)
+    # img -= b3
+    # img *= (img<250)
+    g2 = (g - r)
+    # g2 *= (g2<250)
+    r2 = (r - g)
+    # r2 *= (r2<250)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    plt.subplot(221)
-    plt.imshow(img)
-    plt.subplot(222)
-    plt.imshow(b, cmap='gray')
-    plt.subplot(223)
-    plt.imshow(g, cmap='gray')
-    plt.subplot(224)
-    plt.imshow(r, cmap='gray')
-    plt.show()
+    plot_images(2,2,[img,b,g2,r2], gray=True, titles=[' ', 'b', 'g', 'r'])
 
 
 def border():
     BLUE = [255, 0, 0]
-    img1 = cv2.imread('../images/opencv-logo.png')
+    img1 = cv2.imread('images/opencv-logo.png')
     replicate = cv2.copyMakeBorder(img1, 10, 10, 10, 10, cv2.BORDER_REPLICATE)
     reflect = cv2.copyMakeBorder(img1, 10, 10, 10, 10, cv2.BORDER_REFLECT)
     reflect101 = cv2.copyMakeBorder(img1, 10, 10, 10, 10, cv2.BORDER_REFLECT_101)
@@ -61,11 +62,11 @@ def border():
 
 def blend():
     e1 = cv2.getTickCount()
-    img1 = cv2.imread('../images/lena.jpg')
+    img1 = cv2.imread('images/lena.jpg')
     img1 = cv2.cvtColor(img1,cv2.COLOR_BGR2RGB)
     plt.subplot(131)
     plt.imshow(img1)
-    img2 = cv2.imread('../images/opencv-logo.png')
+    img2 = cv2.imread('images/opencv-logo.png')
     img2 = cv2.cvtColor(img2,cv2.COLOR_BGR2RGB)
     plt.subplot(132)
     plt.imshow(img2)
@@ -84,8 +85,8 @@ def blend():
 
 def add():
     # Load two images
-    img1 = cv2.imread('../images/messi.jpg')
-    img2 = cv2.imread('../images/opencv-logo.png')
+    img1 = cv2.imread('images/messi.jpg')
+    img2 = cv2.imread('images/opencv-logo.png')
     # I want to put logo on top-left corner, So I create a ROI
     rows, cols, channels = img2.shape
     roi = img1[0:rows, 0:cols]
@@ -105,4 +106,5 @@ def add():
     cv2.destroyAllWindows()
 
 
-add()
+if __name__ == '__main__':
+    split()
