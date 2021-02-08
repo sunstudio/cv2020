@@ -10,7 +10,7 @@ def hsv_values():
     files = ['009','010','011','b1','b2']
     names = ['box','green','red','b1','b2']
     for i in range(len(files)):
-        print('file: ', names[i])
+        print(names[i], end=':\t')
         img = cv2.imread(f't:\\images\\{files[i]}.jpg')
         img2 = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
         avg1=[]
@@ -51,13 +51,19 @@ def get_ruler_size():
     lower = np.array([0,50,100])
     upper = np.array([5,255,255])
     mask = cv2.inRange(img2,lower,upper)
+    # n1 = np.count_nonzero(mask)
 
     lower = np.array([170,20,80])
     upper = np.array([200,255,255])
     mask2 = cv2.inRange(img2,lower,upper)
+    # n1 = np.count_nonzero(mask2)
 
-    mask3 = np.bitwise_or(mask.astype(np.bool), mask2.astype(np.bool))
-    mask3 = mask3.astype(np.uint8)
+    # mask3 = np.bitwise_or(mask.astype(np.bool), mask2.astype(np.bool))
+    # mask3 = mask3.astype(np.uint8)
+    mask3 = cv2.merge([mask,mask2])
+    # n1 = np.count_nonzero(mask4)
+    # n2 = np.count_nonzero(mask3)
+
     contours,hierarchy = cv2.findContours(mask3, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     # contours2 = sorted(contours, key=lambda a: cv2.contourArea(a), reverse=True)
     contours2 = [ (cv2.contourArea(a), a) for a in contours]
@@ -170,6 +176,6 @@ def get_box_size():
 if __name__ == '__main__':
     # hsv_values()
     # hsv_filter()
-    # get_ruler_size()
-    get_old_ruler_size()
+    get_ruler_size()
+    # get_old_ruler_size()
     # get_box_size()
